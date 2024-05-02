@@ -8,31 +8,30 @@ const stopButton = document.querySelector("#stop");
 const countSpan = document.querySelector("#count");
 
 function updateCount() {
-  countSpan.textContent = count + " second(s)";
+  countSpan.textContent = count + " second/s";
+}
+
+function updateTimer() {
+  count++;
+  updateCount();
 }
 
 function startTimer() {
-  intervalId = setInterval(function () {
-    count++;
-    updateCount();
-  }, 1000);
+  intervalId = setInterval(updateTimer, 1000);
   startButton.disabled = true;
   pauseButton.disabled = false;
+}
+
+function resumeTimer() {
+  intervalId = setInterval(updateTimer, 1000);
+  pauseButton.disabled = false;
+  resumeButton.disabled = true;
 }
 
 function pauseTimer() {
   clearInterval(intervalId);
   pauseButton.disabled = true;
   resumeButton.disabled = false;
-}
-
-function resumeTimer() {
-  intervalId = setInterval(function () {
-    count++;
-    updateCount();
-  }, 1000);
-  pauseButton.disabled = false;
-  resumeButton.disabled = true;
 }
 
 function stopTimer() {
